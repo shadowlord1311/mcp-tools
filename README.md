@@ -49,39 +49,84 @@ bun run build
 
 ## Configuration
 
-Configure the servers via environment variables:
+MCP Tools supports configuration through a YAML file, environment variables, or both (with environment variables taking precedence).
 
-### GitHub Server
+### YAML Configuration (Recommended)
+
+Create a `mcpconfig.yml` file in your project root:
+
+```yaml
+# List of enabled servers
+servers:
+  - github
+  - database
+  - testrail
+
+# Platform configurations
+platforms:
+  github:
+    type: github
+    config:
+      token: "${GITHUB_TOKEN}"  # Can use environment variables
+      baseUrl: "https://api.github.com"
+  
+  database:
+    type: database
+    config:
+      connectionString: "${DATABASE_URL}"
+      type: "postgresql"  # postgresql, mysql, sqlite
+  
+  testrail:
+    type: testrail
+    config:
+      baseUrl: "${TESTRAIL_URL}"
+      username: "${TESTRAIL_USERNAME}"
+      password: "${TESTRAIL_PASSWORD}"
+
+# Logging configuration
+logging:
+  level: "info"  # debug, info, warn, error
+  format: "text"  # json, text
+```
+
+Copy the provided `mcpconfig.example.yml` as a starting point.
+
+### Environment Variables
+
+You can still configure servers via environment variables (these override YAML settings):
+
+#### GitHub Server
 ```bash
 export GITHUB_TOKEN="your_github_token"
+export GITHUB_BASE_URL="https://api.github.com"  # optional
 ```
 
-### Database Server
+#### Database Server
 ```bash
 export DATABASE_URL="postgresql://user:password@localhost:5432/database"
-# or
-export DATABASE_URL="mysql://user:password@localhost:3306/database"
-# or
-export DATABASE_URL="sqlite:///path/to/database.db"
+export DATABASE_TYPE="postgresql"  # postgresql, mysql, sqlite
 ```
 
-### TestRail Server
+#### TestRail Server
 ```bash
 export TESTRAIL_URL="https://your-company.testrail.io"
 export TESTRAIL_USERNAME="your_username"
 export TESTRAIL_PASSWORD="your_password"
 ```
 
-### Server Selection
-By default, all servers are enabled. To customize which servers to run:
+#### Global Settings
 ```bash
-export MCP_SERVERS="github,database"  # Only run GitHub and Database servers
+export MCP_SERVERS="github,database"  # Override enabled servers
+export LOG_LEVEL="debug"  # debug, info, warn, error
+export LOG_FORMAT="json"  # json, text
 ```
 
-### Logging
-```bash
-export LOG_LEVEL="debug"  # debug, info, warn, error (default: info)
-```
+### Configuration Priority
+
+Configuration is loaded in the following order (highest priority first):
+1. Environment variables
+2. `mcpconfig.yml` file
+3. Built-in defaults
 
 ## Available Tools
 

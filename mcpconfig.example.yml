@@ -1,0 +1,34 @@
+# MCP Tools Configuration
+# Copy this file to 'mcpconfig.yml' and modify as needed
+
+# List of enabled servers
+servers:
+  - github
+  - database
+  - testrail
+
+# Platform configurations
+platforms:
+  github:
+    type: github
+    config:
+      token: "${GITHUB_TOKEN}"  # Can use environment variables
+      baseUrl: "https://api.github.com"
+  
+  database:
+    type: database
+    config:
+      connectionString: "${DATABASE_URL}"
+      type: "postgresql"  # postgresql, mysql, sqlite
+  
+  testrail:
+    type: testrail
+    config:
+      baseUrl: "${TESTRAIL_URL}"
+      username: "${TESTRAIL_USERNAME}"
+      password: "${TESTRAIL_PASSWORD}"
+
+# Logging configuration
+logging:
+  level: "info"  # debug, info, warn, error
+  format: "text"  # json, text
