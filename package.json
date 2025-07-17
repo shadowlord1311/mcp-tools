@@ -1,0 +1,46 @@
+{
+  "name": "mcp-tools",
+  "version": "1.0.0",
+  "description": "A collection of MCP (Model Context Protocol) servers for various platform integrations",
+  "main": "src/index.ts",
+  "module": "src/index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "bun run --hot src/index.ts",
+    "build": "bun build src/index.ts --compile --outfile mcp-tools",
+    "start": "bun run src/index.ts",
+    "test": "bun test",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "format": "prettier --write src/**/*.ts",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "tools",
+    "integration",
+    "typescript",
+    "bun"
+  ],
+  "author": "Shadow Lord",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.4.0",
+    "yaml": "^2.8.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.4"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "engines": {
+    "bun": ">=1.0.0"
+  }
+}
